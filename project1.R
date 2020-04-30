@@ -32,69 +32,11 @@ sa_2013 <- read.csv("female_cy2013_top.csv")
 
 # process data wrangling 
 library(tidyverse)
-library(dplyr)
 ### if tidyverse not installed 
 ### install.packages("tidyverse")
 
 
 ############################ VIC DATA #######################################
-# 2019
-  # reformat rank to year
-vic_2019$Rank <- 2019
-vic_2019 <- vic_2019 %>%
-  rename(Name_male = Name...Male, Name_female = Name...Female,
-         Count_male = Count, Count_female = Count.1, Year = Rank)
-  # remove Rank.1
-vic_2019$Rank.1 <- NULL
-  
- 
-# 2018-13
-vic_2018$Top.100.Baby.Names...2018 <- 2018
-vic_2017$Top.100.Baby.Names...2017. <- 2017
-vic_2016$Top.100.Baby.Names...2016. <- 2016
-vic_2015$Top.100.Baby.Names...2015. <- 2015
-vic_2014$Top.100.Baby.Names...2014. <- 2014
-vic_2013$Top.100.Baby.Names...2013 <- 2013
-# remove empty rows
-vic_2018$NA..2 <- NULL
-vic_2018$NA..3 <- NULL
-vic_2017$NA..2 <- NULL
-vic_2017$NA..3 <- NULL
-vic_2016$NA..2 <- NULL
-vic_2016$NA..3 <- NULL
-vic_2015$NA..2 <- NULL
-vic_2015$NA..3 <- NULL
-vic_2014$NA..2 <- NULL
-vic_2014$NA..3 <- NULL
-vic_2013$NA..2 <- NULL
-vic_2013$NA..3 <- NULL
-# rename varians
-vic_2018 <- vic_2018 %>%
-  rename(Year = Top.100.Baby.Names...2018, Name_male = NA., Count_male = NA..1,
-         Name_female = NA..4, Count_female = NA..5)
-vic_2017 <- vic_2017 %>%
-  rename(Year = Top.100.Baby.Names...2017., Name_male = NA., Count_male = NA..1,
-         Name_female = NA..4, Count_female = NA..5)
-vic_2016 <- vic_2016 %>%
-  rename(Year = Top.100.Baby.Names...2016., Name_male = NA., Count_male = NA..1,
-         Name_female = NA..4, Count_female = NA..5)
-vic_2015 <- vic_2015 %>%
-  rename(Year = Top.100.Baby.Names...2015., Name_male = NA., Count_male = NA..1,
-         Name_female = NA..4, Count_female = NA..5)
-vic_2014 <- vic_2014 %>%
-  rename(Year = Top.100.Baby.Names...2014., Name_male = NA., Count_male = NA..1,
-         Name_female = NA..4, Count_female = NA..5)
-vic_2013 <- vic_2013 %>%
-  rename(Year = Top.100.Baby.Names...2013, Name_male = NA., Count_male = NA..1,
-         Name_female = NA..4, Count_female = NA..5)
-  # remove first 2 rows
-vic_2018 <- tail(vic_2018, -2)
-vic_2017 <- tail(vic_2017, -2)
-vic_2016 <- tail(vic_2016, -2)
-vic_2015 <- tail(vic_2015, -2)
-vic_2014 <- tail(vic_2014, -2)
-vic_2013 <- tail(vic_2013, -2)
-  
 # only keep first 15th data for each df. as the lean data
 lean_v2013<- head(vic_2013,-85)
 lean_v2014<- head(vic_2014,-85)
@@ -103,6 +45,75 @@ lean_v2016<- head(vic_2016,-85)
 lean_v2017<- head(vic_2017,-85)
 lean_v2018<- head(vic_2018,-85)
 lean_v2019<- head(vic_2019,-85)
+
+# rename columns
+lean_v2019 <- lean_v2019 %>%
+  rename(Name_male = Name...Male, Name_female = Name...Female,
+         Count_male = Count, Count_female = Count.1)
+
+lean_v2018 <- lean_v2018 %>%
+  rename(Name_male = NA., Count_male = NA..1,
+         Name_female = NA..4, Count_female = NA..5)
+
+lean_v2017 <- lean_v2017 %>%
+  rename(Name_male = NA., Count_male = NA..1,
+         Name_female = NA..4, Count_female = NA..5)
+
+lean_v2016 <- lean_v2016 %>%
+  rename(Name_male = NA., Count_male = NA..1,
+         Name_female = NA..4, Count_female = NA..5)
+
+lean_v2015 <- lean_v2015 %>%
+  rename(Name_male = NA., Count_male = NA..1,
+         Name_female = NA..4, Count_female = NA..5)
+
+lean_v2014 <- lean_v2014 %>%
+  rename(Name_male = NA., Count_male = NA..1,
+         Name_female = NA..4, Count_female = NA..5)
+
+lean_v2013 <- lean_v2013 %>%
+  rename(Name_male = NA., Count_male = NA..1,
+         Name_female = NA..4, Count_female = NA..5)
+# add year
+lean_v2013$Year <- 2013
+lean_v2014$Year <- 2014
+lean_v2015$Year <- 2015
+lean_v2016$Year <- 2016
+lean_v2017$Year <- 2017
+lean_v2018$Year <- 2018
+lean_v2019$Year <- 2019
+
+# remove empty columns
+lean_v2019$Rank <- NULL
+lean_v2019$Rank.1 <- NULL
+lean_v2018$NA..2 <- NULL
+lean_v2018$NA..3 <- NULL
+lean_v2017$NA..2 <- NULL
+lean_v2017$NA..3 <- NULL
+lean_v2016$NA..2 <- NULL
+lean_v2016$NA..3 <- NULL
+lean_v2015$NA..2 <- NULL
+lean_v2015$NA..3 <- NULL
+lean_v2014$NA..2 <- NULL
+lean_v2014$NA..3 <- NULL
+lean_v2013$NA..2 <- NULL
+lean_v2013$NA..3 <- NULL
+
+# remove unecessary columns
+lean_v2018$Top.100.Baby.Names...2018 <- NULL
+lean_v2017$Top.100.Baby.Names...2017. <- NULL
+lean_v2016$Top.100.Baby.Names...2016. <- NULL
+lean_v2015$Top.100.Baby.Names...2015. <- NULL
+lean_v2014$Top.100.Baby.Names...2014. <- NULL
+lean_v2013$Top.100.Baby.Names...2013 <- NULL
+
+ # remove first 2 rows
+lean_v2018 <- tail(lean_v2018, -2)
+lean_v2017 <- tail(lean_v2017, -2)
+lean_v2016 <- tail(lean_v2016, -2)
+lean_v2015 <- tail(lean_v2015, -2)
+lean_v2014 <- tail(lean_v2014, -2)
+lean_v2013 <- tail(lean_v2013, -2)
 
 #convert to factor for mergeing
 lean_v2018$Count_female <- as.numeric(levels(lean_v2018$Count_female))[lean_v2018$Count_female]
@@ -258,6 +269,7 @@ vic_6y <- merge(vic3456, vic789, all =TRUE)
   
   # adding location & latitude , longitude 
   vic_6y$State <- "Victoria"
+  
   # vic_6y$longitude <- 144.948955
   # vic_6y$latitude <- -37.794048
   
@@ -279,6 +291,16 @@ vic_6y <- merge(vic3456, vic789, all =TRUE)
   #au_baby$Country <- "Australia" 
   # FINAL 
   au_baby <- merge(vic_qld, sa_6y, all = TRUE)
+  
+  # reformat all the names to same foramati
+  reformat <- function(name) {
+    name <- tolower(name)
+    substr(name, 1, 1) <- toupper(substr(name, 1, 1))
+  }
+  
+  au_baby$Name_male <- reformat(au_baby$Name_male)
+  au_baby$Name_female <- reformat(au_baby$Name_female)
+
 ############################ END OF Final Merge ##############################
   # Export the df to csv file
   write.csv(au_baby, "au_baby.csv")
